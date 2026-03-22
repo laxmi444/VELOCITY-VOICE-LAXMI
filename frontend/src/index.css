@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 6% 3.5%;
+    --foreground: 240 5% 96%;
+
+    --card: 240 6% 10%;
+    --card-foreground: 240 5% 96%;
+
+    --popover: 240 6% 10%;
+    --popover-foreground: 240 5% 96%;
+
+    --primary: 263 70% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 240 5% 96%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 187 94% 53%;
+    --accent-foreground: 240 6% 3.5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 84% 39%;
+
+    --border: 0 0% 100% / 0.06;
+    --input: 0 0% 100% / 0.06;
+    --ring: 263 70% 58%;
+
+    --radius: 0.75rem;
+
+    --surface: 240 7% 12%;
+    --surface-elevated: 240 5% 16%;
+    --violet-glow: 263 70% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass {
+    background: hsl(var(--background) / 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-surface {
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--border));
+    backdrop-filter: blur(12px);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 20px hsl(var(--violet-glow) / 0.15);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 8px hsl(var(--accent) / 0.3);
+  }
+
+  .gradient-user-bubble {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ambient-glow {
+    background: radial-gradient(ellipse 600px 400px at 50% 30%, hsl(263 70% 58% / 0.07), transparent);
+  }
+}
+
+/* Message animations */
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(263 70% 58% / 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 35px hsl(263 70% 58% / 0.4);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes sonar-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes dot-pulse {
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+}
+
+@keyframes gradient-line {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.animate-message-in {
+  animation: message-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-sonar {
+  animation: sonar-ring 1.8s ease-out infinite;
+}
+
+.animate-sonar-delayed {
+  animation: sonar-ring 1.8s ease-out 0.6s infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, hsl(var(--surface)) 25%, hsl(var(--surface-elevated)) 50%, hsl(var(--surface)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.animate-gradient-line {
+  background: linear-gradient(90deg, #7c3aed, #22d3ee, #7c3aed);
+  background-size: 200% 100%;
+  animation: gradient-line 3s linear infinite;
+}
+
+.dot-pulse span:nth-child(1) { animation: dot-pulse 1.4s ease-in-out infinite; }
+.dot-pulse span:nth-child(2) { animation: dot-pulse 1.4s ease-in-out 0.2s infinite; }
+.dot-pulse span:nth-child(3) { animation: dot-pulse 1.4s ease-in-out 0.4s infinite; }
