@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes import transcribe, interpret, refine, enhance
 
 app = FastAPI(
-    title="Velocity Voice Mode API",
+    title="Velocity Voice Mode",
     description="Backend for Velocity Voice Mode — converts speech into structured prompts",
     version="1.0.0",
 )
